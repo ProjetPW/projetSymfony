@@ -3,6 +3,8 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Categories;
+
+use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
@@ -25,4 +27,12 @@ class CategoriesCrudController extends AbstractCrudController
         ];
     }
 
+   public function deleteEntity(EntityManagerInterface $manager, $entityInstance) : void{
+        if(!$entityInstance instanceof Categories) return;
+
+        foreach ($entityInstance->getLicenciers() as $liencier) {
+            $manager->remove($liencier);
+        }
+        parent::deleteEntity($manager, $entityInstance);
+   }
 }

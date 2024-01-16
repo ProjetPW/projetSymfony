@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\ContactsRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ContactsRepository::class)]
 class Contacts
@@ -14,6 +15,7 @@ class Contacts
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    
     private ?string $nomContact = null;
 
     #[ORM\Column(length: 255)]

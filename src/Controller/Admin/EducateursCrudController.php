@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Educateurs;
+use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
@@ -28,4 +29,13 @@ class EducateursCrudController extends AbstractCrudController
             BooleanField::new('estAdmin' , 'Est Admin')->renderAsSwitch(true),
         ];
     }
+
+    public function deleteEntity(EntityManagerInterface $manager, $entityInstance) : void{
+        if(!$entityInstance instanceof Educateurs) return;
+
+        foreach ($entityInstance->getLicencier() as $liencier) {
+            $manager->remove($liencier);
+        }
+        parent::deleteEntity($manager, $entityInstance);
+   }
 }

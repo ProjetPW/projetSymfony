@@ -19,6 +19,9 @@ class Categories
     private ?string $nomCategory = null;
 
     #[ORM\OneToMany(mappedBy: 'category', targetEntity: Licenciers::class)]
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Licenciers", mappedBy="category", cascade={"remove"})
+     */
     private Collection $licenciers;
 
     #[ORM\Column(length: 255, nullable: true)]
